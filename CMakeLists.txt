@@ -16,7 +16,7 @@ include_directories(${CMAKE_SOURCE_DIR}/include)
 
 # Sender sources
 set(SENDER_SRCS
-    src/sender/main.cpp
+    src/sender/main_sender.cpp
     src/sender/file_source.cpp
     src/sender/ccsds_stub_encoder.cpp
     src/sender/udp_sender.cpp
@@ -24,7 +24,7 @@ set(SENDER_SRCS
 
 # Receiver sources
 set(RECEIVER_SRCS
-    src/receiver/main.cpp
+    src/receiver/main_receiver.cpp
     src/common/frame_reassembler.cpp
 )
 
