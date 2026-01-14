@@ -1,0 +1,14 @@
+[Unit]
+Description=tm_receiver (test) - UDP frame reassembler
+After=network.target
+
+[Service]
+# Adjust the ExecStart path below to the full path of the built tm_receiver binary on your system.
+Type=simple
+ExecStart=/home/youruser/work/son/AGX_Udp_test/03_vs_udp_test/build/bin/tm_receiver 5000
+Restart=on-failure
+# To redirect output to a logfile, either wrap ExecStart in a shell script that redirects stdout/stderr,
+# or use systemd's `StandardOutput` and `StandardError` options (see systemd.service(5)).
+
+[Install]
+WantedBy=multi-user.target

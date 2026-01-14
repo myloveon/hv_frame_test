@@ -1,0 +1,1 @@
+/usr/bin/c++  -Wall -Wextra CMakeFiles/tm_sender.dir/src/sender/main.cpp.o CMakeFiles/tm_sender.dir/src/sender/file_source.cpp.o CMakeFiles/tm_sender.dir/src/sender/ccsds_stub_encoder.cpp.o CMakeFiles/tm_sender.dir/src/sender/udp_sender.cpp.o -o bin/tm_sender  -lpthread 
