@@ -12,10 +12,16 @@ set -euo pipefail
 
 #./run_test.sh --port 6000 --raw test_data/raw/my.raw
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT_DIR="${SCRIPT_DIR}"
+
 BUILD_SCRIPT="./build.sh"
 RECEIVER_PORT=5000
 RAW_PATH="test_data/raw/gradient_1920x1080.raw"
 RECEIVER_LOG="tm_receiver_debug.log"
+SENDER_LOG="tm_sender_debug.log"
+
+
 
 # options
 STOP_RECEIVER=true
@@ -38,26 +44,28 @@ while [ "$#" -gt 0 ]; do
 done
 
 echo "1) Build"
-"$BUILD_SCRIPT"
+#"$BUILD_SCRIPT"
+"${ROOT_DIR}/build.sh" debuglog
 
 echo "2) Stop any existing receiver"
 pkill -f tm_receiver || true
 sleep 0.1
 
 echo "3) Start receiver (background)"
-nohup ./build/bin/tm_receiver "$RECEIVER_PORT" > "$RECEIVER_LOG" 2>&1 &
+#nohup ./build/bin/tm_receiver "$RECEIVER_PORT" > "$RECEIVER_LOG" 2>&1 &
+./build/bin/tm_receiver "$RECEIVER_PORT" > "$RECEIVER_LOG" 2>&1 &
 RECV_PID=$!
 echo "receiver pid=$RECV_PID (log=$RECEIVER_LOG)"
 sleep 0.2
 
 echo "4) Send frame"
-./build/bin/tm_sender 127.0.0.1 "$RECEIVER_PORT" "$RAW_PATH"
+./build/bin/tm_sender 127.0.0.1 "$RECEIVER_PORT" "$RAW_PATH" > "$SENDER_LOG" 2>&1 &
 
 echo "5) Wait briefly for reassembly"
 sleep 0.5
 
 echo "6) List generated files"
-ls -l sender_header.bin received_header.bin received_raw.bin received_frame.bin || true
+ls -l sender_header.bin received_full_header.bin received_full_raw.bin received_full_frame.bin || true
 
 if [ -f sender_header.bin ] && [ -f received_header.bin ]; then
   echo "Header checksums:"
@@ -84,8 +92,13 @@ fi
 
 if [ "$KEEP_LOG" = true ]; then
   TS=$(date +%Y%m%d_%H%M%S)
+  sleep 2
+  
   mv "$RECEIVER_LOG" "${RECEIVER_LOG%.log}_$TS.log" || true
   echo "Receiver log preserved as ${RECEIVER_LOG%.log}_$TS.log"
+  
+  mv "$SENDER_LOG" "${SENDER_LOG%.log}_$TS.log" || true
+  echo "Sender log preserved as ${SENDER_LOG%.log}_$TS.log"
 else
   rm -f "$RECEIVER_LOG" || true
   echo "Receiver log removed"

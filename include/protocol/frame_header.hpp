@@ -11,7 +11,7 @@ struct FrameHeader {
     uint8_t  bitdepth;       // RAW bit depth (10/12/16)
     uint8_t  reserved;       // alignment / future use
     uint32_t frame_size;     // payload size (after header)
-};	//프레임 단위
+};	//Frame unit
 #pragma pack(pop)
 
 

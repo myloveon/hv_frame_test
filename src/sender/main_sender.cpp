@@ -27,7 +27,8 @@ int main(int argc, char* argv[])
     UdpSender sender(argv[1], std::stoi(argv[2]));
 
     std::vector<uint8_t> raw;
-    if (!src.getNextFrame(raw)) {
+    if (!src.getNextFrame(raw))
+    {
         std::cerr << "Failed to read frame\n";
         return -1;
     }
@@ -36,7 +37,8 @@ int main(int argc, char* argv[])
         encoder.encode(raw, 1920, 1080, 12);
 
     // write sender header separately for comparison
-    if (frame.size() >= sizeof(FrameHeader)) {
+    if (frame.size() >= sizeof(FrameHeader))
+    {
         std::ofstream sh("sender_header.bin", std::ios::binary);
         sh.write(reinterpret_cast<const char*>(frame.data()), sizeof(FrameHeader));
     }

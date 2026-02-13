@@ -1,4 +1,0 @@
-/home/hive21/work/son/AGX_Udp_test/03_vs_udp_test/build/CMakeFiles/tm_sender.dir
-/home/hive21/work/son/AGX_Udp_test/03_vs_udp_test/build/CMakeFiles/tm_receiver.dir
-/home/hive21/work/son/AGX_Udp_test/03_vs_udp_test/build/CMakeFiles/edit_cache.dir
-/home/hive21/work/son/AGX_Udp_test/03_vs_udp_test/build/CMakeFiles/rebuild_cache.dir

@@ -25,7 +25,12 @@ set(SENDER_SRCS
 # Receiver sources
 set(RECEIVER_SRCS
     src/receiver/main_receiver.cpp
-    src/common/frame_reassembler.cpp
+    src/common/frame_writer.cpp
+    src/common/frame_reassembler_v2.cpp
+    src/common/frame_reassembler_manager.cpp
+    src/debug/hv_debug.cpp
+    src/debug/debug_log.cpp
+    src/common/packet_queue.cpp
 )
 
 add_executable(tm_sender ${SENDER_SRCS})
@@ -33,6 +38,20 @@ target_compile_options(tm_sender PRIVATE -O3 -Wall)
 target_link_libraries(tm_sender PRIVATE pthread)
 
 add_executable(tm_receiver ${RECEIVER_SRCS})
+
+# Enable debug logging in Debug build on x86_64
+if (CMAKE_BUILD_TYPE STREQUAL "Debug"
+    AND CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64"
+    AND DEBUG_LOG_ENABLE)
+    target_compile_definitions(tm_receiver
+        PRIVATE DEBUG_LOG_ENABLE
+    )
+endif()
+
+target_compile_definitions(tm_receiver
+    PRIVATE FRAME_REASSEMBLER_V2
+)
+
 
 # Platform-specific options for receiver
 if(CMAKE_SYSTEM_PROCESSOR MATCHES "aarch64")

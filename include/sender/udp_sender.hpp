@@ -10,6 +10,7 @@ public:
     UdpSender(const std::string& ip, uint16_t port);
     ~UdpSender();
 
+    bool waitWritable();
     void sendFrame(const std::vector<uint8_t>& frame);
 
 private:

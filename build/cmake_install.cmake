@@ -1,4 +1,4 @@
-# Install script for directory: /home/hive21/work/son/AGX_Udp_test/03_vs_udp_test
+# Install script for directory: /home/hive21/work/son/AGX_Udp_test/03_git_vs_udp_test/hv_frame_test
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -12,7 +12,7 @@ if(NOT DEFINED CMAKE_INSTALL_CONFIG_NAME)
     string(REGEX REPLACE "^[^A-Za-z0-9_]+" ""
            CMAKE_INSTALL_CONFIG_NAME "${BUILD_TYPE}")
   else()
-    set(CMAKE_INSTALL_CONFIG_NAME "")
+    set(CMAKE_INSTALL_CONFIG_NAME "Debug")
   endif()
   message(STATUS "Install configuration: \"${CMAKE_INSTALL_CONFIG_NAME}\"")
 endif()
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/hive21/work/son/AGX_Udp_test/03_vs_udp_test/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/hive21/work/son/AGX_Udp_test/03_git_vs_udp_test/hv_frame_test/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
